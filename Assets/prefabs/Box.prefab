@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212926525057707596}
   - component: {fileID: 114044441364595414}
   - component: {fileID: 61553550788538004}
+  - component: {fileID: 114381263685130596}
   m_Layer: 8
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,6 +80,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 12
+--- !u!114 &114381263685130596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229719314552780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a64da9a23c48847b1e7e92f07a8992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxColor: 
 --- !u!212 &212926525057707596
 SpriteRenderer:
   m_ObjectHideFlags: 1

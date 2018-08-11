@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour {
     public void Start() {
         coll = GetComponent<BoxCollider2D>();
         bounds = coll.bounds;
-        solidMask = LayerMask.GetMask("Solid");
+        solidMask = LayerMask.GetMask("Solid") | LayerMask.GetMask("Boxes");
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -107,11 +107,11 @@ public class PlayerMovement : MonoBehaviour {
 
         // Calculate origin of ray and shoot.
         Vector2 origin;
-        origin = (Vector2)transform.position + new Vector2(-bounds.extents.x + MARGIN, bounds.extents.y * direction.y);
+        origin = (Vector2)transform.position + new Vector2(-bounds.extents.x + MARGIN, bounds.extents.y * direction.y + coll.offset.y);
         if (castVerticalRay(origin, direction, distance)) {
             return;
         }
-        origin = (Vector2)transform.position + new Vector2(bounds.extents.x - MARGIN, bounds.extents.y * direction.y);
+        origin = (Vector2)transform.position + new Vector2(bounds.extents.x - MARGIN, bounds.extents.y * direction.y + coll.offset.y);
         castVerticalRay(origin, direction, distance);
     }
 
