@@ -29,14 +29,27 @@ public class BoxGrabber : MonoBehaviour {
      
         if (carriedBox == null)
         {
-            // Picking up a box.
-            Vector2 origin = new Vector2(transform.position.x + (coll.bounds.extents.x * (isFacingRight ? 1 : -1)), transform.position.y);
-            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * (isFacingRight ? 1 : -1), reach, boxMask);
-            if (hit.collider != null && canPickupBoxes(hit.collider.transform)) {
-                carriedBox = hit.collider.gameObject;
-                carriedBox.transform.SetParent(this.transform);
-                carriedBox.transform.localPosition = new Vector3(0, 1, 0);
-                setBoxTowerEnabledValue(carriedBox.transform, false);
+            //If pressing down, pick up box from underneath.
+            if (Input.GetButton("Down")) {
+                Vector2 pointToCheckBelow = new Vector2(transform.position.x, transform.position.y - 1);
+                Collider2D otherBelow = Physics2D.OverlapPoint(pointToCheckBelow);
+                if(otherBelow != null && otherBelow.tag == "Box") {
+                    carriedBox = otherBelow.gameObject;
+                    carriedBox.transform.SetParent(this.transform);
+                    carriedBox.transform.localPosition = new Vector3(0, 1, 0);
+                    setBoxTowerEnabledValue(carriedBox.transform, false);
+                }
+            } else {
+                // Picking up a box.
+                Vector2 origin = new Vector2(transform.position.x + (coll.bounds.extents.x * (isFacingRight ? 1 : -1)), transform.position.y);
+                RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * (isFacingRight ? 1 : -1), reach, boxMask);
+                if (hit.collider != null && canPickupBoxes(hit.collider.transform))
+                {
+                    carriedBox = hit.collider.gameObject;
+                    carriedBox.transform.SetParent(this.transform);
+                    carriedBox.transform.localPosition = new Vector3(0, 1, 0);
+                    setBoxTowerEnabledValue(carriedBox.transform, false);
+                }
             }
         } else {
             // Dropping a box.
@@ -47,10 +60,6 @@ public class BoxGrabber : MonoBehaviour {
             } else {
                 x = Mathf.Round(edgeOfPlayer) - 1;
             }
-
-            //if (Mathf.Abs(edgeOfPlayer - x) > 0.5f) {
-            //    return;
-            //}
 
             Vector2 pointToCheck = new Vector2(x, Mathf.RoundToInt(transform.position.y));
             Collider2D other = Physics2D.OverlapPoint(pointToCheck);
@@ -66,6 +75,7 @@ public class BoxGrabber : MonoBehaviour {
     private void setBoxTowerEnabledValue(Transform box, bool enabled) {
         while (box != null) {
             box.GetComponent<BoxMovement>().enabled = enabled;
+            box.GetComponent<BoxCollider2D>().size = enabled ? Vector2.one : new Vector2(0.725f, 1);
             if (box.childCount > 0) {
                 box = box.GetChild(0);
             } else {
