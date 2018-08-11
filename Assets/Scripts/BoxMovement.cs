@@ -10,6 +10,7 @@ public class BoxMovement : MonoBehaviour {
     private BoxCollider2D coll;
     private Bounds bounds;
     private LayerMask solidMask = new LayerMask();
+    private bool done = false;
 
     public void Start()
     {
@@ -19,6 +20,10 @@ public class BoxMovement : MonoBehaviour {
     }
 
     void Update () {
+        if(done) {
+            Destroy(this);
+            return;
+        }
         velocity -= gravity * Time.deltaTime;
 
         castRay();
@@ -29,12 +34,14 @@ public class BoxMovement : MonoBehaviour {
     private void castRay(){
         Vector2 origin = (Vector2)transform.position + new Vector2(0, -bounds.extents.y);
         float distance = Mathf.Abs(velocity * Time.deltaTime);
-        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, distance, solidMask);
-        Debug.DrawRay(origin, Vector2.down * distance, hit.collider == null ? Color.green : Color.red);
-        if (hit.collider != null && hit.collider != coll) {
-            velocity = 0;
-            transform.Translate(hit.distance * Vector2.down);
-            Destroy(this);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector2.down, distance, solidMask);
+        foreach (RaycastHit2D hit in hits) {
+            if (hit.collider != coll) {
+                velocity = 0;
+                transform.Translate(hit.distance * Vector2.down);
+                done = true;
+                return;
+            }
         }
     }
 }
