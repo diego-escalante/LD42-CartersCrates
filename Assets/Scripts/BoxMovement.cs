@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BoxMovement : MonoBehaviour {
 
@@ -9,39 +7,50 @@ public class BoxMovement : MonoBehaviour {
 
     private BoxCollider2D coll;
     private Bounds bounds;
-    private LayerMask solidMask = new LayerMask();
-    private bool done = false;
+    private const float MARGIN = 0.01f;
 
     public void Start()
     {
         coll = GetComponent<BoxCollider2D>();
         bounds = coll.bounds;
-        solidMask = LayerMask.GetMask("Solid");
     }
 
     void Update () {
-        if(done) {
-            Destroy(this);
-            return;
-        }
         velocity -= gravity * Time.deltaTime;
 
-        castRay();
+        collisionCheck();
 
         transform.Translate(0, velocity * Time.deltaTime, 0);
 	}
 
-    private void castRay(){
-        Vector2 origin = (Vector2)transform.position + new Vector2(0, -bounds.extents.y);
+    private void collisionCheck(){
         float distance = Mathf.Abs(velocity * Time.deltaTime);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector2.down, distance, solidMask);
-        foreach (RaycastHit2D hit in hits) {
-            if (hit.collider != coll) {
+        Vector2 origin = (Vector2)transform.position + new Vector2(-bounds.extents.x + MARGIN, -bounds.extents.y);
+        if (castVerticalRay(origin, distance)){
+            return;
+        }
+        origin = (Vector2)transform.position + new Vector2(bounds.extents.x - MARGIN, -bounds.extents.y);
+        castVerticalRay(origin, distance);
+    }
+
+    private bool castVerticalRay(Vector2 origin, float distance)
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector2.down, distance);
+        foreach(RaycastHit2D hit in hits) {
+            if (hit.collider == coll){
+                continue;
+            }
+            if (hit.collider.tag == "Player") {
+                Debug.Log("Player hit! Ouch!");
+                Destroy(gameObject);
+                return true;
+            }
+            else {
                 velocity = 0;
-                transform.Translate(hit.distance * Vector2.down);
-                done = true;
-                return;
+                transform.Translate(Vector2.down * hit.distance);
+                return true;
             }
         }
+        return false;
     }
 }

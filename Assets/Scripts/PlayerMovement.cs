@@ -7,10 +7,13 @@ public class PlayerMovement : MonoBehaviour {
     public float gravity;
     public float jumpStrength;
 
+    private bool facingRight;
+
     private Vector2 velocity = Vector2.zero;
     private bool grounded = false;
     private BoxCollider2D coll;
     private Bounds bounds;
+    private SpriteRenderer spriteRenderer;
     private LayerMask solidMask = new LayerMask();
 
     private const float MARGIN = 0.01f;
@@ -20,11 +23,20 @@ public class PlayerMovement : MonoBehaviour {
         coll = GetComponent<BoxCollider2D>();
         bounds = coll.bounds;
         solidMask = LayerMask.GetMask("Solid");
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Update() {
         // Moving Horizontally.
         velocity.x = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+        if (velocity.x > 0){
+            facingRight = true;
+        } else if (velocity.x < 0) {
+            facingRight = false;
+        }
+
+        spriteRenderer.flipX = !facingRight;
 
         // Falling and Jumping.
         if(!grounded) {
@@ -94,7 +106,7 @@ public class PlayerMovement : MonoBehaviour {
         if (castVerticalRay(origin, direction, distance)) {
             return;
         }
-        origin = (Vector2)transform.position + new Vector2(bounds.extents.x - MARGIN    , bounds.extents.y * direction.y);
+        origin = (Vector2)transform.position + new Vector2(bounds.extents.x - MARGIN, bounds.extents.y * direction.y);
         castVerticalRay(origin, direction, distance);
     }
 
@@ -112,5 +124,9 @@ public class PlayerMovement : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    public bool getFacingRight() {
+        return facingRight;
     }
 }
