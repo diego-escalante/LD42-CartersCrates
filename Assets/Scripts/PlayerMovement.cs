@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private bool facingRight;
 
+    private float moveDelay = 0.075f;
+    private float moveDelayElapsed = 0f;
     private Vector2 velocity = Vector2.zero;
     private bool grounded = false;
     private BoxCollider2D coll;
@@ -28,12 +30,21 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Update() {
         // Moving Horizontally.
-        velocity.x = Input.GetAxisRaw("Horizontal") * runSpeed;
+        float hInput = Input.GetAxisRaw("Horizontal");
 
-        if (velocity.x > 0){
+        if (hInput > 0 && !facingRight){
             facingRight = true;
-        } else if (velocity.x < 0) {
+            moveDelayElapsed = moveDelay;
+        } else if (hInput < 0 && facingRight) {
             facingRight = false;
+            moveDelayElapsed = moveDelay;
+        }
+
+        if (moveDelayElapsed > 0) {
+            moveDelayElapsed -= Time.deltaTime;
+            velocity.x = 0;
+        } else {
+            velocity.x = hInput * runSpeed;
         }
 
         spriteRenderer.flipX = !facingRight;

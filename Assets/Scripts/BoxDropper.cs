@@ -6,6 +6,7 @@ public class BoxDropper : MonoBehaviour {
     public int range = 8;
     public float spawnRate = 10f;
     public GameObject boxPrefab;
+    public float decayPerMinute = 0.5f;
 
     private float elapsedTime = 0f;
 
@@ -19,6 +20,8 @@ public class BoxDropper : MonoBehaviour {
 
     public void Update() {
         elapsedTime += Time.deltaTime;
+
+        spawnRate -= Time.deltaTime * (decayPerMinute / 60);
 
         if (elapsedTime >= spawnRate) {
             elapsedTime -= spawnRate;
