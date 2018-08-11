@@ -7,6 +7,17 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\n\npublic class PlayerMovement : MonoBehaviour {\n\n\tpublic float runSpeed;\n\tpublic float gravity;\n\n\tpublic void Start() {\n\n\t}\n\n\tpublic void Update() {\n\t\tInput.Horizontal\n\t}\n\n}\n",
+			"file": "Assets/Scripts/PlayerMovement.cs",
+			"file_size": 439,
+			"file_write_time": 131784196390423722,
+			"settings":
+			{
+				"buffer_size": 252,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -19,6 +30,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
 			[
 				"M",
 				"Material Theme: Configuration"
@@ -36,7 +51,7 @@
 	},
 	"console":
 	{
-		"height": 124.0,
+		"height": 420.0,
 		"history":
 		[
 			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
@@ -53,10 +68,17 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/DES03/Dev/Unity/LD42"
+		"/C/Users/DES03/Dev/Unity/LD42/Assets/Scripts"
 	],
 	"file_history":
 	[
+		"/F/Users/Diego/Dev/Unity/SpaceGame/Assets/Scripts/Movement/MovementBase.cs",
+		"/F/Users/Diego/Dev/Unity/SpaceGame/Assets/Scripts/Other Scripts/inputEventManager.cs",
+		"/F/Users/Diego/Dev/Unity/SpaceGame/Assets/Scripts/Movement/MovementPlayer.cs",
+		"/F/Users/Diego/Dev/Unity/ElectricJezebel/Assets/Scripts/playerMovement.cs",
+		"/C/Users/DES03/Dev/Unity/LD42/LD42.sublime-project",
+		"/C/Users/DES03/Dev/Unity/LD42/.gitattributes",
+		"/C/Users/DES03/Dev/Unity/LD42/README.md",
 		"/C/Users/DES03/Dev/Unity/game-bedrock/Assets/Scripts/jfyjhf.cs",
 		"/C/Users/DES03/Dev/Unity/game-bedrock/Assets/Scripts/HelloWorld.cs",
 		"/C/Users/DES03/AppData/Roaming/Sublime Text 3/Packages/Material Theme - Appbar/package.json",
@@ -101,8 +123,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "Assets/Scripts/PlayerMovement.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								245,
+								245
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
