@@ -48,6 +48,9 @@ public class BoxMovement : MonoBehaviour {
             else {
                 velocity = 0;
                 transform.Translate(Vector2.down * hit.distance);
+                if (hit.collider.tag == "Box") {
+                    transform.SetParent(hit.collider.transform);
+                }
                 return true;
             }
         }

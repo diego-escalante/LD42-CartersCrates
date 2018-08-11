@@ -2,6 +2,7 @@
 
 public class BoxGrabber : MonoBehaviour {
 
+    public int boxTowerLimit = 3;
     private PlayerMovement playerMovement;
     private GameObject carriedBox = null;
 
@@ -19,20 +20,45 @@ public class BoxGrabber : MonoBehaviour {
                 if (coll == null) {
                     carriedBox.transform.SetParent(null);
                     carriedBox.transform.position = new Vector3(pointToCheck.x, pointToCheck.y, carriedBox.transform.position.z);
-                    carriedBox.GetComponent<BoxMovement>().enabled = true;
-                    carriedBox.GetComponent<BoxCollider2D>().enabled = true;
+                    setBoxTowerEnabledValue(carriedBox.transform, true);
                     carriedBox = null;
                 }
             } else {
-                if (coll != null && coll.tag == "Box")
-                {
+                if (coll != null && coll.tag == "Box" && canPickupBoxes(coll.transform)) {
                     carriedBox = coll.gameObject;
                     carriedBox.transform.SetParent(this.transform);
                     carriedBox.transform.localPosition = new Vector3(0, 1, 0);
-                    carriedBox.GetComponent<BoxMovement>().enabled = false;
-                    carriedBox.GetComponent<BoxCollider2D>().enabled = false;
+                    setBoxTowerEnabledValue(carriedBox.transform, false);
                 }
             }
         }
 	}
+
+    private void setBoxTowerEnabledValue(Transform box, bool enabled) {
+        while (box != null) {
+            box.GetComponent<BoxMovement>().enabled = enabled;
+            box.GetComponent<BoxCollider2D>().enabled = enabled;
+            if (box.childCount > 0) {
+                box = box.GetChild(0);
+            } else {
+                box = null;
+            }
+        }
+    }
+
+    private bool canPickupBoxes(Transform box) {
+        int count = 0;
+        while (box != null) {
+            if (++count > boxTowerLimit) {
+                return false;
+            }
+            if (box.childCount > 0) {
+                box = box.GetChild(0);
+            }
+            else {
+                box = null;
+            }
+        }
+        return true;
+    }
 }
