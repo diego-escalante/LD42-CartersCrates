@@ -37,7 +37,7 @@ public class BoxGrabber : MonoBehaviour {
     private void setBoxTowerEnabledValue(Transform box, bool enabled) {
         while (box != null) {
             box.GetComponent<BoxMovement>().enabled = enabled;
-            box.GetComponent<BoxCollider2D>().enabled = enabled;
+            //box.GetComponent<BoxCollider2D>().enabled = enabled;
             if (box.childCount > 0) {
                 box = box.GetChild(0);
             } else {

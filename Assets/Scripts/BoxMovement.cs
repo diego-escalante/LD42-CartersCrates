@@ -40,7 +40,7 @@ public class BoxMovement : MonoBehaviour {
             if (hit.collider == coll){
                 continue;
             }
-            if (hit.collider.tag == "Player") {
+            if (hit.collider.tag == "Player" || hit.collider.transform.root.tag == "Player") {
                 Debug.Log("Player hit! Ouch!");
                 Destroy(gameObject);
                 return true;

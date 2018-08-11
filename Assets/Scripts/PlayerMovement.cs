@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour {
             velocity.y -= gravity * Time.deltaTime;
         } else if (Input.GetButtonDown("Jump")) {
             velocity.y = jumpStrength;
+            grounded = false;
         }
 
         //Collision Checks.
@@ -88,6 +89,10 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void verticalCollisionCheck() {
+        if (velocity.y > 0) {
+            return;
+        }
+
         // Set the direction of the check.
         Vector2 direction = Vector2.down;
         if (velocity.y > 0) {
