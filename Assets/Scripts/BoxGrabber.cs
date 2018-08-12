@@ -2,6 +2,9 @@
 
 public class BoxGrabber : MonoBehaviour {
 
+    public Sprite normalSprite;
+    public Sprite heavySprite;
+
     public int boxTowerLimit = 3;
     private PlayerMovement playerMovement;
     private GameObject carriedBox = null;
@@ -9,17 +12,20 @@ public class BoxGrabber : MonoBehaviour {
     private LayerMask boxMask = new LayerMask();
     private const float MARGIN = 0.01f;
 
+    private Transform crosshairs;
+    private SpriteRenderer crosshairsRenderer;
+
 
     void Start () {
         playerMovement = GetComponent<PlayerMovement>();
         coll = GetComponent<Collider2D>();
         boxMask = LayerMask.GetMask("Boxes");
+        crosshairs = GameObject.FindWithTag("Crosshairs").transform;
+        crosshairsRenderer = crosshairs.GetComponent<SpriteRenderer>();
     }
 	
 	void Update () {
-		if (Input.GetButtonDown("Action")) {
-            doAction();
-        }
+        doAction();
 	}
 
     private void doAction() {
@@ -31,24 +37,51 @@ public class BoxGrabber : MonoBehaviour {
         {
             //If pressing down, pick up box from underneath.
             if (Input.GetButton("Down")) {
-                Vector2 pointToCheckBelow = new Vector2(transform.position.x, transform.position.y - 1);
+                Vector2 pointToCheckBelow = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y - 1));
                 Collider2D otherBelow = Physics2D.OverlapPoint(pointToCheckBelow);
                 if(otherBelow != null && otherBelow.tag == "Box") {
-                    carriedBox = otherBelow.gameObject;
-                    carriedBox.transform.SetParent(this.transform);
-                    carriedBox.transform.localPosition = new Vector3(0, 1, 0);
-                    setBoxTowerEnabledValue(carriedBox.transform, false);
+                    if (Input.GetButtonDown("Action")) {
+                        carriedBox = otherBelow.gameObject;
+                        carriedBox.transform.SetParent(this.transform);
+                        carriedBox.transform.localPosition = new Vector3(0, 1, 0);
+                        setBoxTowerEnabledValue(carriedBox.transform, false);
+                    }
+                    crosshairsRenderer.enabled = true;
+                    crosshairsRenderer.sprite = normalSprite;
+                    crosshairs.position = pointToCheckBelow;
+                } else {
+                    crosshairsRenderer.enabled = false;
                 }
             } else {
                 // Picking up a box.
                 Vector2 origin = new Vector2(transform.position.x + (coll.bounds.extents.x * (isFacingRight ? 1 : -1)), transform.position.y);
                 RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * (isFacingRight ? 1 : -1), reach, boxMask);
-                if (hit.collider != null && canPickupBoxes(hit.collider.transform))
-                {
-                    carriedBox = hit.collider.gameObject;
-                    carriedBox.transform.SetParent(this.transform);
-                    carriedBox.transform.localPosition = new Vector3(0, 1, 0);
-                    setBoxTowerEnabledValue(carriedBox.transform, false);
+                float x;
+                float edgeOfPlayer = transform.position.x + ((coll.bounds.extents.x - MARGIN) * (playerMovement.getFacingRight() ? 1 : -1));
+                if (playerMovement.getFacingRight()) {
+                    x = Mathf.Round(edgeOfPlayer) + 1;
+                } else {
+                    x = Mathf.Round(edgeOfPlayer) - 1;
+                }
+                Vector3 pointToCheckSide = new Vector3(x, Mathf.RoundToInt(transform.position.y), -5);
+
+                if (hit.collider != null && canPickupBoxes(hit.collider.transform)) {
+                    if (Input.GetButtonDown("Action")) {
+                        carriedBox = hit.collider.gameObject;
+                        carriedBox.transform.SetParent(this.transform);
+                        carriedBox.transform.localPosition = new Vector3(0, 1, 0);
+                        setBoxTowerEnabledValue(carriedBox.transform, false);
+                    }
+                    
+                    crosshairsRenderer.enabled = true;
+                    crosshairs.position = pointToCheckSide;
+                    crosshairsRenderer.sprite = normalSprite;
+                } else if (hit.collider != null && !canPickupBoxes(hit.collider.transform)) {
+                    crosshairsRenderer.enabled = true;
+                    crosshairs.position = pointToCheckSide;
+                    crosshairsRenderer.sprite = heavySprite;
+                } else {
+                    crosshairsRenderer.enabled = false;
                 }
             }
         } else {
@@ -64,10 +97,17 @@ public class BoxGrabber : MonoBehaviour {
             Vector2 pointToCheck = new Vector2(x, Mathf.RoundToInt(transform.position.y));
             Collider2D other = Physics2D.OverlapPoint(pointToCheck);
             if (other == null) {
-                carriedBox.transform.SetParent(null);
-                carriedBox.transform.position = new Vector3(pointToCheck.x, pointToCheck.y, carriedBox.transform.position.z);
-                setBoxTowerEnabledValue(carriedBox.transform, true);
-                carriedBox = null;
+                if (Input.GetButtonDown("Action")) {
+                    carriedBox.transform.SetParent(null);
+                    carriedBox.transform.position = new Vector3(pointToCheck.x, pointToCheck.y, carriedBox.transform.position.z);
+                    setBoxTowerEnabledValue(carriedBox.transform, true);
+                    carriedBox = null;
+                }
+                crosshairsRenderer.enabled = true;
+                crosshairsRenderer.sprite = normalSprite;
+                crosshairs.position = pointToCheck;
+            } else {
+                crosshairsRenderer.enabled = false;
             }
         }
     }

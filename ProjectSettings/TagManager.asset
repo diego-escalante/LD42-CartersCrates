@@ -8,6 +8,7 @@ TagManager:
   - Goalgreen
   - Goalblue
   - Goalred
+  - Crosshairs
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - 
   - 
   - Solid
-  - 
+  - Boxes
   - 
   - 
   - 

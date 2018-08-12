@@ -10,6 +10,10 @@ public class BoxDropper : MonoBehaviour {
 
     private float elapsedTime = 0f;
 
+    public void Start() {
+        spawnPenalty();
+    }
+
     public void OnEnable() {
         EventManager.StartListening("Player Hit", spawnPenalty);
     }
