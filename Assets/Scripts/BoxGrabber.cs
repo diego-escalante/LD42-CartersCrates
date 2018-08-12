@@ -144,4 +144,8 @@ public class BoxGrabber : MonoBehaviour {
         }
         return true;
     }
+
+    public bool isCarrying() {
+        return carriedBox != null;
+    }
 }

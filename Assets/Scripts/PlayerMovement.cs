@@ -21,11 +21,16 @@ public class PlayerMovement : MonoBehaviour {
     private const float MARGIN = 0.01f;
     private const int RAY_NUMBER = 2;
 
+    private PlayerAnimator playerAnimator;
+    private BoxGrabber boxGrabber;
+
     public void Start() {
         coll = GetComponent<BoxCollider2D>();
         bounds = coll.bounds;
         solidMask = LayerMask.GetMask("Solid") | LayerMask.GetMask("Boxes");
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerAnimator = GetComponent<PlayerAnimator>();
+        boxGrabber = GetComponent<BoxGrabber>();
     }
 
     public void Update() {
@@ -56,6 +61,29 @@ public class PlayerMovement : MonoBehaviour {
             velocity.y = jumpStrength;
             grounded = false;
             EventManager.TriggerEvent("Jump");
+        }
+
+        // Animate
+        if (boxGrabber.isCarrying()) {
+            if (!grounded) {
+                playerAnimator.setCarryJump();
+            } else {
+                if (velocity.x != 0) {
+                    playerAnimator.setCarryRun();
+                } else {
+                    playerAnimator.setCarryStand();
+                }
+            }
+        } else {
+            if (!grounded) {
+                playerAnimator.setJump();
+            } else {
+                if (velocity.x != 0) {
+                    playerAnimator.setRun();
+                } else {
+                    playerAnimator.setStand();
+                }
+            }
         }
 
         //Collision Checks.

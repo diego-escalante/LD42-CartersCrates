@@ -1048,6 +1048,7 @@ GameObject:
   - component: {fileID: 1799323629}
   - component: {fileID: 1799323628}
   - component: {fileID: 1799323630}
+  - component: {fileID: 1799323631}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1090,7 +1091,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9c98908773f1e3245a7d641a81330fa0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01af38b616af2fe4db202b9f7073b85c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1167,6 +1168,21 @@ MonoBehaviour:
   normalSprite: {fileID: 21300000, guid: c15338293e985634686a2437ecc3a5b4, type: 3}
   heavySprite: {fileID: 21300000, guid: 12f30c8988d477147985c8862038c949, type: 3}
   boxTowerLimit: 3
+--- !u!114 &1799323631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1799323625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e02482b3176362459c697c7597a7d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carryStand: {fileID: 21300000, guid: 01af38b616af2fe4db202b9f7073b85c, type: 3}
+  carryRun: {fileID: 21300002, guid: 01af38b616af2fe4db202b9f7073b85c, type: 3}
+  stand: {fileID: 21300006, guid: 01af38b616af2fe4db202b9f7073b85c, type: 3}
+  run: {fileID: 21300004, guid: 01af38b616af2fe4db202b9f7073b85c, type: 3}
 --- !u!1 &1823798919
 GameObject:
   m_ObjectHideFlags: 0
