@@ -5,7 +5,7 @@ using UnityEngine;
 public class WarningBehavior : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
-    private float delay = 2f;
+    private float delay = 0.25f;
     private float timeElapsed = 0;
 
     public void Start() {

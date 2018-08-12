@@ -30,6 +30,7 @@ public class SoundController : MonoBehaviour {
         EventManager.StartListening("Drop", playDropSound);
         EventManager.StartListening("Jump", playJumpSound);
         EventManager.StartListening("Box Crash", playBoxCrashSound);
+        EventManager.StartListening("Game Over", playBoxCrashSound);
 
     }
 
@@ -42,6 +43,7 @@ public class SoundController : MonoBehaviour {
         EventManager.StopListening("Drop", playDropSound);
         EventManager.StopListening("Jump", playJumpSound);
         EventManager.StopListening("Box Crash", playBoxCrashSound);
+        EventManager.StopListening("Game Over", playBoxCrashSound);
     }
 
     private void playBoxCrashSound() {

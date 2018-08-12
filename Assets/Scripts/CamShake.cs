@@ -10,6 +10,7 @@ public class CamShake : MonoBehaviour
 
     public void OnEnable() {
         EventManager.StartListening("Player Hit", bigShake);
+        EventManager.StartListening("Game Over", bigShake);
         EventManager.StartListening("Error", tinyShake);
         EventManager.StartListening("Box Crash", boxShake);
     }
@@ -18,6 +19,7 @@ public class CamShake : MonoBehaviour
         EventManager.StopListening("Player Hit", bigShake);
         EventManager.StopListening("Error", tinyShake);
         EventManager.StopListening("Box Crash", boxShake);
+        EventManager.StopListening("Game Over", bigShake);
     }
 
     public void tinyShake()
