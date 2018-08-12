@@ -7,7 +7,7 @@ public class HighScoreManager : MonoBehaviour
 
     private const string privateCode = "PASTE YOUR CODE HERE";
     private const string publicCode = "5b707e04191a8b0bccbf5a23";
-    private const string webURL = "http://dreamlo.com/lb/";
+    private const string webURL = "https://dreamlo.com/lb/";
 
     public GameObject userGO;
     public GameObject scoreGO;
