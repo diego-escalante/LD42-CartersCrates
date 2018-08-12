@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private LayerMask solidMask = new LayerMask();
 
-    private const float MARGIN = 0.01f;
+    private const float MARGIN = 0.001f;
     private const int RAY_NUMBER = 2;
 
     private PlayerAnimator playerAnimator;

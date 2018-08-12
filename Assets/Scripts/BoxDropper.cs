@@ -51,29 +51,18 @@ public class BoxDropper : MonoBehaviour {
     private void spawnPenalty() {
         float xPlayerPos = GameObject.FindWithTag("Player").transform.position.x;
 
-        // Create an arraylist with all options.
-        List<int> possibleNumbers = new List<int>();
-        for (int i = -range; i <= range; i++) {
+        int amountOfBoxes = 3;
+        while(amountOfBoxes > 0) {
+            int i = Random.Range(-range, range + 1);
+
             if (Mathf.Abs(i - xPlayerPos) < 3) {
                 continue;
             }
-            possibleNumbers.Add(i);
-        }
-
-        int amountOfBoxes = 3;
-
-        for (; amountOfBoxes > 0 || possibleNumbers.Count == 0; amountOfBoxes--) {
-            int i = Random.Range(0, possibleNumbers.Count);
-            int x = possibleNumbers[i];
-            possibleNumbers.RemoveAt(i);
-
-            Collider2D coll = Physics2D.OverlapBox(new Vector2(x, 6), Vector2.one, 0);
-            if (coll != null) {
-                amountOfBoxes++;
+            if (Physics2D.OverlapPoint(new Vector2(i, 6)) != null) {
                 continue;
             }
-
-            Instantiate(boxPrefab, new Vector3(x, 6, 0), Quaternion.identity);
+            Instantiate(boxPrefab, new Vector3(i, 6, 0), Quaternion.identity);
+            amountOfBoxes--;
         }
     }
 }

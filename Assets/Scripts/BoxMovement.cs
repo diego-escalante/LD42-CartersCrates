@@ -11,11 +11,19 @@ public class BoxMovement : MonoBehaviour {
 
     private BoxColorBehavior boxColorBehavior;
 
-    public void Start()
-    {
+    public void Awake() {
         coll = GetComponent<BoxCollider2D>();
         bounds = coll.bounds;
         boxColorBehavior = GetComponent<BoxColorBehavior>();
+
+        Collider2D[] colls = Physics2D.OverlapBoxAll(transform.position, Vector2.one, 0);
+        foreach(Collider2D otherColl in colls) {
+            if (otherColl == coll) {
+                return;
+            }
+            Debug.Log("Deleted box before it ended the game!");
+            Destroy(this.gameObject);
+        }
     }
 
     void Update () {
