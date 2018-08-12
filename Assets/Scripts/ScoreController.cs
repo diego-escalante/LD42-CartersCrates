@@ -7,11 +7,11 @@ public class ScoreController : MonoBehaviour {
     private int score = 0;
 
 	void OnEnable () {
-        EventManager.StartListening("Box Scored", boxScored);
+        EventManager.StartListening("Score", boxScored);
 	}
 
 	void OnDisable () {
-        EventManager.StopListening("Box Scored", boxScored);
+        EventManager.StopListening("Score", boxScored);
 	}
 
     public void boxScored(){

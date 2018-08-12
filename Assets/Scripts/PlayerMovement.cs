@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour {
         } else if (Input.GetButtonDown("Jump")) {
             velocity.y = jumpStrength;
             grounded = false;
+            EventManager.TriggerEvent("Jump");
         }
 
         //Collision Checks.

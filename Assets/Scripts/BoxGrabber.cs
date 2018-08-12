@@ -71,6 +71,7 @@ public class BoxGrabber : MonoBehaviour {
                         carriedBox.transform.SetParent(this.transform);
                         carriedBox.transform.localPosition = new Vector3(0, 1, 0);
                         setBoxTowerEnabledValue(carriedBox.transform, false);
+                        EventManager.TriggerEvent("Pick Up");
                     }
                     
                     crosshairsRenderer.enabled = true;
@@ -80,6 +81,9 @@ public class BoxGrabber : MonoBehaviour {
                     crosshairsRenderer.enabled = true;
                     crosshairs.position = pointToCheckSide;
                     crosshairsRenderer.sprite = heavySprite;
+                    if (Input.GetButtonDown("Action")) {
+                        EventManager.TriggerEvent("Error");
+                    }
                 } else {
                     crosshairsRenderer.enabled = false;
                 }
@@ -98,6 +102,7 @@ public class BoxGrabber : MonoBehaviour {
             Collider2D other = Physics2D.OverlapPoint(pointToCheck);
             if (other == null) {
                 if (Input.GetButtonDown("Action")) {
+                    EventManager.TriggerEvent("Drop");
                     carriedBox.transform.SetParent(null);
                     carriedBox.transform.position = new Vector3(pointToCheck.x, pointToCheck.y, carriedBox.transform.position.z);
                     setBoxTowerEnabledValue(carriedBox.transform, true);

@@ -59,7 +59,6 @@ public class BoxDropper : MonoBehaviour {
             }
 
             Instantiate(boxPrefab, new Vector3(x, 6, 0), Quaternion.identity);
-            Debug.Log(x);
         }
     }
 }

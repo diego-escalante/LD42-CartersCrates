@@ -19,13 +19,12 @@ public class BoxMovement : MonoBehaviour {
     }
 
     void Update () {
-        velocity -= gravity * Time.deltaTime;
-
-        collisionCheck();
-
-        transform.Translate(0, velocity * Time.deltaTime, 0);
-
-        checkIfPastGoal();
+        if (transform.parent == null) {
+            velocity -= gravity * Time.deltaTime;
+            collisionCheck();
+            transform.Translate(0, velocity * Time.deltaTime, 0);
+            checkIfPastGoal();
+        }
 	}
 
     private void collisionCheck(){
@@ -54,15 +53,13 @@ public class BoxMovement : MonoBehaviour {
                 Destroy(gameObject);
                 return true;
             } if (hit.collider.gameObject == boxColorBehavior.getDesiredGoal()) {
-                if (transform.childCount > 0) {
-                    transform.GetChild(0).transform.SetParent(null);
-                }
                 continue;
             } else {
                 velocity = 0;
                 transform.Translate(Vector2.down * hit.distance);
                 if (hit.collider.tag == "Box") {
                     transform.SetParent(hit.collider.transform);
+                    
                 }
                 return true;
             }
@@ -71,9 +68,18 @@ public class BoxMovement : MonoBehaviour {
     }
 
     private void checkIfPastGoal() {
-        if (transform.position.y < -6) {
-            EventManager.TriggerEvent("Box Scored");
+        if (transform.position.y < -4.75) {
+            EventManager.TriggerEvent("Score");
+            coll.enabled = false;
+            if (transform.childCount > 0) { 
+                transform.GetChild(0).GetComponent<BoxMovement>().setVelocity(velocity);
+                transform.GetChild(0).SetParent(null);
+            }
             Destroy(gameObject);
         }
+    }
+
+    public void setVelocity(float velocity) {
+        this.velocity = velocity;
     }
 }
