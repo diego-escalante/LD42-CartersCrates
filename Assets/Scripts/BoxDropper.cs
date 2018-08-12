@@ -10,19 +10,34 @@ public class BoxDropper : MonoBehaviour {
 
     private float elapsedTime = 0f;
 
-    public void Start() {
-        spawnPenalty();
-    }
+    private bool currentlySpawning = false;
 
     public void OnEnable() {
         EventManager.StartListening("Player Hit", spawnPenalty);
+        EventManager.StartListening("Start Game", startGame);
+        EventManager.StartListening("Game Over", endGame);
     }
 
     public void OnDisable() {
         EventManager.StopListening("Player Hit", spawnPenalty);
+        EventManager.StopListening("Start Game", startGame);
+        EventManager.StopListening("Game Over", endGame);
+    }
+
+    private void startGame() {
+        currentlySpawning = true;
+        spawnPenalty();
+    }
+
+    private void endGame() {
+        currentlySpawning = false;
     }
 
     public void Update() {
+        if (!currentlySpawning) {
+            return;
+        }
+
         elapsedTime += Time.deltaTime;
 
         spawnRate -= Time.deltaTime * (decayPerMinute / 60);

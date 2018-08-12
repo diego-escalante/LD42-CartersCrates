@@ -62,7 +62,10 @@ public class BoxMovement : MonoBehaviour {
                 transform.Translate(Vector2.down * hit.distance);
                 if (hit.collider.tag == "Box") {
                     transform.SetParent(hit.collider.transform);
-                    
+                    if (transform.position.y >= 5) {
+                        EventManager.TriggerEvent("Game Over");
+                        Debug.Log("Game overerer!");
+                    }
                 }
                 return true;
             }
