@@ -55,6 +55,9 @@ public class BoxMovement : MonoBehaviour {
             } if (hit.collider.gameObject == boxColorBehavior.getDesiredGoal()) {
                 continue;
             } else {
+                if (velocity < -10) {
+                    EventManager.TriggerEvent("Box Crash");
+                }
                 velocity = 0;
                 transform.Translate(Vector2.down * hit.distance);
                 if (hit.collider.tag == "Box") {

@@ -11,11 +11,13 @@ public class CamShake : MonoBehaviour
     public void OnEnable() {
         EventManager.StartListening("Player Hit", bigShake);
         EventManager.StartListening("Error", tinyShake);
+        EventManager.StartListening("Box Crash", boxShake);
     }
 
     public void OnDisable() {
         EventManager.StopListening("Player Hit", bigShake);
         EventManager.StopListening("Error", tinyShake);
+        EventManager.StopListening("Box Crash", boxShake);
     }
 
     public void tinyShake()
@@ -23,9 +25,9 @@ public class CamShake : MonoBehaviour
         if (doneShaking) StartCoroutine(shake(5, 0.1f, 0.01f, true, Vector2.zero));
     }
 
-    public void smallShake()
+    public void boxShake()
     {
-        if (doneShaking) StartCoroutine(shake(15, 0.5f, 0.01f, true, Vector2.zero));
+        if (doneShaking) StartCoroutine(shake(15, 0.25f, 0.01f, true, Vector2.down));
     }
 
     public void bigShake()

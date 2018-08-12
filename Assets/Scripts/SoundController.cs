@@ -10,9 +10,9 @@ public class SoundController : MonoBehaviour {
     public AudioClip scoreSound;
     public AudioClip errorSound;
     public AudioClip hitSound;
-    
+    public AudioClip boxCrashSound;
+
     private float scoreResetTime = 2f;
-    private int scoreStreak = 1;
     private float scoreCurrentTime = 0f;
 
     public AudioSource audioSource;
@@ -29,7 +29,8 @@ public class SoundController : MonoBehaviour {
         EventManager.StartListening("Pick Up", playPickupSound);
         EventManager.StartListening("Drop", playDropSound);
         EventManager.StartListening("Jump", playJumpSound);
-        
+        EventManager.StartListening("Box Crash", playBoxCrashSound);
+
     }
 
     public void OnDisable()
@@ -40,6 +41,11 @@ public class SoundController : MonoBehaviour {
         EventManager.StopListening("Pick Up", playPickupSound);
         EventManager.StopListening("Drop", playDropSound);
         EventManager.StopListening("Jump", playJumpSound);
+        EventManager.StopListening("Box Crash", playBoxCrashSound);
+    }
+
+    private void playBoxCrashSound() {
+        audioSource.PlayOneShot(boxCrashSound);
     }
 
     private void playJumpSound() {
@@ -55,6 +61,9 @@ public class SoundController : MonoBehaviour {
     }
 
     private void playErrorSound() {
+        if (audioSource.isPlaying) {
+            return;
+        }
         audioSource.PlayOneShot(errorSound);
     }
 
@@ -73,5 +82,4 @@ public class SoundController : MonoBehaviour {
 
         scoreAudioSource.PlayOneShot(scoreSound);
     }
-
 }
