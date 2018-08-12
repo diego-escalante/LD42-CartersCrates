@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BoxColorBehavior : MonoBehaviour {
     public string boxColor;
+    public Sprite redBox;
+    public Sprite blueBox;
+    public Sprite greenBox;
 
     private GameObject desiredGoal;
 
@@ -14,11 +17,11 @@ public class BoxColorBehavior : MonoBehaviour {
         boxColor = availableColors[Random.Range(0, availableColors.Length)];
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (boxColor == "red") {
-            spriteRenderer.color = Color.red;
+            spriteRenderer.sprite = redBox;
         } else if (boxColor == "green") {
-            spriteRenderer.color = Color.green;
+            spriteRenderer.sprite = greenBox;
         } else {
-            spriteRenderer.color = Color.blue;
+            spriteRenderer.sprite = blueBox;
         }
 
         desiredGoal = GameObject.FindWithTag("Goal" + boxColor);

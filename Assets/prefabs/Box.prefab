@@ -92,6 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxColor: 
+  redBox: {fileID: 21300000, guid: f38e33de9b526944da4699b1942868b5, type: 3}
+  blueBox: {fileID: 21300000, guid: 450921deb3ea735428159990fce33b3d, type: 3}
+  greenBox: {fileID: 21300000, guid: e61be02df8447c949a5480d16e1261fa, type: 3}
 --- !u!212 &212926525057707596
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -128,7 +131,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 37ba30a2fcf64fd4ba18ef65da7a51e5, type: 3}
-  m_Color: {r: 0.8207547, g: 0.4522303, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

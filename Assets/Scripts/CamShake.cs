@@ -27,12 +27,12 @@ public class CamShake : MonoBehaviour
 
     public void boxShake()
     {
-        if (doneShaking) StartCoroutine(shake(15, 0.25f, 0.01f, true, Vector2.down));
+        if (doneShaking) StartCoroutine(shake(10, 0.15f, 0.01f, true, Vector2.down));
     }
 
     public void bigShake()
     {
-        if (doneShaking) StartCoroutine(shake(30, 0.75f, 0.01f, true, Vector2.zero));
+        if (doneShaking) StartCoroutine(shake(30, 0.75f, 0.015f, true, Vector2.zero));
     }
 
     private IEnumerator shake(int amount, float range, float duration, bool decay, Vector2 direction)
