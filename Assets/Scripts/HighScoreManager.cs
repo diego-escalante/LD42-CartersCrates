@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class HighScoreManager : MonoBehaviour
 {
 
-    private const string privateCode = "Wt6RA-5S-EOksijWXGmXLwq6E9gurqmE-7Mdbirt9iWA";
-    private const string publicCode = "5b701a60191a8b0bccbce57c";
+    private const string privateCode = "PASTE YOUR CODE HERE";
+    private const string publicCode = "5b707e04191a8b0bccbf5a23";
     private const string webURL = "http://dreamlo.com/lb/";
 
     public GameObject userGO;
