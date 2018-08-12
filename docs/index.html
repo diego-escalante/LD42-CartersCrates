@@ -3,13 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | LD42 - Carter's Crates</title>
+    <title>LD42 - Carter's Crates</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="TemplateData/UnityProgress.js"></script>  
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/docs.json");
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/docs.json", {onProgress: UnityProgress});
     </script>
   </head>
-  <body>
-    <div id="gameContainer" style="width: 1280px; height: 720px; margin: auto"></div>
+  <body style="background-color: #000000">
+    <div class="webgl-content">
+      <div id="gameContainer" style="width: 1280px; height: 720px"></div>
+    </div>
   </body>
 </html>
