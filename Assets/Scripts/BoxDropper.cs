@@ -44,21 +44,28 @@ public class BoxDropper : MonoBehaviour {
 
         if (elapsedTime >= spawnRate) {
             elapsedTime -= spawnRate;
-            Instantiate(boxPrefab, new Vector3(Random.Range(-range, range+1), 6, 0), Quaternion.identity);
+            spawnPenaltyWithArgs(1, false);
         }
     }
 
     private void spawnPenalty() {
-        float xPlayerPos = GameObject.FindWithTag("Player").transform.position.x;
+        spawnPenaltyWithArgs(3, true);
+    }
 
-        int amountOfBoxes = 3;
+    private void spawnPenaltyWithArgs(int amountOfBoxes, bool ignorePlayer) {
+        int attempts = 50;
         while(amountOfBoxes > 0) {
+            if (attempts < 0) {
+                Debug.LogWarning("Could not spawn boxes");
+                return;
+            }
+            attempts--;
             int i = Random.Range(-range, range + 1);
 
-            if (Mathf.Abs(i - xPlayerPos) < 3) {
+            if (ignorePlayer && Mathf.Abs(i - GameObject.FindWithTag("Player").transform.position.x) < 3) {
                 continue;
             }
-            if (Physics2D.OverlapPoint(new Vector2(i, 6)) != null) {
+            if (Physics2D.OverlapPoint(new Vector2(i, 5.501f)) != null) {
                 continue;
             }
             Instantiate(boxPrefab, new Vector3(i, 6, 0), Quaternion.identity);
