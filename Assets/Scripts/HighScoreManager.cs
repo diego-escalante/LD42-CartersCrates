@@ -5,7 +5,11 @@ using UnityEngine.UI;
 public class HighScoreManager : MonoBehaviour
 {
 
+<<<<<<< HEAD
     private const string privateCode = "INSERT PRIVATE CODE HERE";
+=======
+    private const string privateCode = "K1cmUSbG6kSa3_97_PVy0wXcip9ZSD7Ea5W91ce4QVEQ";
+>>>>>>> eba06b779ffcccdd31fc6cfd38750b346dbee59d
     private const string publicCode = "5b707e04191a8b0bccbf5a23";
     private const string webURL = "https://dreamlo.com/lb/";
 
