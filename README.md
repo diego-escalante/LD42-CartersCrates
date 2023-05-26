@@ -8,7 +8,7 @@
 </p>
 
 ## [Play the game here!](https://diego-escalante.itch.io/carters-crates)
-This game was made in 48 hours for the Ludum Dare 42 jam. The theme of the jam was "Running Out of Space." It was made with Unity. 
+This game was made in 48 hours for the Ludum Dare 42 jam in August 2018. The theme of the jam was "Running Out of Space." It was made with Unity. 
 
 ## Links
 * [Carter's Crates on itch.io](https://diego-escalante.itch.io/carters-crates): Play the game directly on your browser here.
